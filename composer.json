@@ -1,0 +1,29 @@
+{
+    "name": "essential/framework",
+    "description": "Essential Framework - O essencial é simples. O simples é fácil. O fácil é barato.",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Essential\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^8.1",
+        "slim/slim": "^4.0",
+        "slim/psr7": "^1.5",
+        "php-di/php-di": "^7.0",
+        "vlucas/phpdotenv": "^5.5"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^6.0"
+    },
+    "config": {
+        "process-timeout": 0,
+        "sort-packages": true
+    },
+    "scripts": {
+        "start": "php -S localhost:8000 -t public"
+    }
+}
