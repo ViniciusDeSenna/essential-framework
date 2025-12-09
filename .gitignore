@@ -6,18 +6,12 @@
 /.phpunit.result.cache
 /.php-cs-fixer.cache
 
-/node_modules/
-/npm-debug.log
-/yarn-error.log
-
 /.DS_Store
 Thumbs.db
 
 /tests/coverage/
 /tests/tmp/
 /coverage/
-/build/
-/dist/
 
 /.env
 .env.*
