@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         executionOrder="depends,defects"
+         beStrictAboutOutputDuringTests="true"
+         failOnRisky="true"
+         failOnWarning="true">
+
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>packages/*/tests/Unit</directory>
+            <directory>tests/Unit</directory>
+        </testsuite>
+
+        <testsuite name="Integration">
+            <directory>packages/*/tests/Integration</directory>
+            <directory>tests/Integration</directory>
+        </testsuite>
+
+        <testsuite name="Contracts">
+            <directory>packages/*/tests/Contracts</directory>
+            <directory>tests/Contracts</directory>
+        </testsuite>
+
+        <testsuite name="E2E">
+            <directory>tests/E2E</directory>
+        </testsuite>
+    </testsuites>
+
+    <source>
+        <include>
+            <directory>packages/*/src</directory>
+        </include>
+        <exclude>
+            <directory>packages/*/tests</directory>
+        </exclude>
+    </source>
+
+    <coverage>
+        <report>
+            <html outputDirectory="coverage/html"/>
+            <clover outputFile="coverage/clover.xml"/>
+            <text outputFile="php://stdout" showUncoveredFiles="false"/>
+        </report>
+    </coverage>
+
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="CACHE_DRIVER" value="array"/>
+        <env name="DB_CONNECTION" value="sqlite"/>
+        <env name="DB_DATABASE" value=":memory:"/>
+    </php>
+
+    <logging>
+        <junit outputFile="coverage/junit.xml"/>
+    </logging>
+</phpunit>

@@ -1,17 +1,37 @@
+# Dependencies
 /vendor/
-/composer.lock
 
+# IDE
 /.idea/
 /.vscode/
-/.phpunit.result.cache
-/.php-cs-fixer.cache
+*.sublime-project
+*.sublime-workspace
+.phpstorm.meta.php
+_ide_helper.php
 
-/.DS_Store
+# OS
+.DS_Store
 Thumbs.db
 
-/tests/coverage/
-/tests/tmp/
+# Testing
 /coverage/
+.phpunit.result.cache
+.phpunit.cache
 
-/.env
-.env.*
+# Build
+/build/
+/dist/
+
+# Environment
+.env
+.env.backup
+.env.local
+
+# Logs
+*.log
+/storage/logs/
+
+# Temporary
+/tmp/
+*.tmp
+*.cache
