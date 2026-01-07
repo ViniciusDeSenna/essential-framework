@@ -52,7 +52,5 @@ final class HelpCommand implements CommandInterface
             $output->write(sprintf("  %-16s %s\n", $cmd->getName(), $cmd->getDescription()));
         }
         return 0;
-
-        return 0;
     }
 }
