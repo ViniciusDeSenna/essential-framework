@@ -1,0 +1,17 @@
+{
+    "name": "essential/framework",
+    "description": "Minimalist PHP framework for building fast and simple APIs. The essential is simple. The simple is easy. The easy is inexpensive.",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Essential\\Framework\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "SENNA",
+            "email": "sennadevinicius@gmail.com"
+        }
+    ],
+    "require": {}
+}
