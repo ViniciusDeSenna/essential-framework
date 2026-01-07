@@ -46,8 +46,14 @@ final class HelpCommand implements CommandInterface
         }
 
         $cmd = $this->registry->get($name);
+
+        $commands = $this->registry->all();
+        $maxName = max(array_map(fn($c) => strlen($c->getName()), $commands));
+        $maxUsage = max(array_map(fn($c) => strlen($c->getUsage()), $commands));
+
+        $output->write("Command details:\n");
         $output->write(sprintf(
-            "%s\nUsage: %s\nDescription: %s\n",
+            "  %-{$maxName}s  '%-{$maxUsage}s'  %s\n",
             $cmd->getName(),
             $cmd->getUsage(),
             $cmd->getDescription()
