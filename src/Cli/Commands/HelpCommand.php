@@ -28,29 +28,55 @@ final class HelpCommand implements CommandInterface
 
     public function execute(Input $input, Output $output): int
     {
-        $commandName = $input->arguments()[0];
+        $args = $input->arguments();
+        $commandName = $args[0] ?? null;
+
         if ($commandName) {
-            if (!$this->registry->has($commandName)) {
-                $output->error("Command '{$commandName}' not found.\n");
-                return 1;
-            }
-            $cmd = $this->registry->get($commandName);
-            $name = $cmd->getName();
-            $usage = $cmd->getUsage();
-            $description = $cmd->getDescription();
-            $output->write(sprintf(
-                " %-" . (strlen($name) + 2) . "s %-" . (strlen($usage) + 2) . "s %s\n",
-                $name,
-                $usage,
-                $description
-            ));        
-            return 0;
+            return $this->showCommandHelp($commandName, $output);
         }
 
-        $output->write("Available commands:\n");
-        foreach ($this->registry->all() as $cmd) {
-            $output->write(sprintf("  %-16s %s\n", $cmd->getName(), $cmd->getDescription()));
+        return $this->showAllCommands($output);
+    }
+
+    private function showCommandHelp(string $name, Output $output): int
+    {
+        if (!$this->registry->has($name)) {
+            $output->error("Command '{$name}' not found.\n");
+            return 1;
         }
+
+        $cmd = $this->registry->get($name);
+        $output->write(sprintf(
+            "%s\nUsage: %s\nDescription: %s\n",
+            $cmd->getName(),
+            $cmd->getUsage(),
+            $cmd->getDescription()
+        ));
+
         return 0;
+    }
+
+    private function showAllCommands(Output $output): int
+    {
+        $output->write("Available commands:\n");
+
+        $commands = $this->registry->all();
+        $maxLength = $this->getMaxNameLength($commands);
+
+        foreach ($commands as $cmd) {
+            $output->write(sprintf(
+                "  %-{$maxLength}s  %s\n",
+                $cmd->getName(),
+                $cmd->getDescription()
+            ));
+        }
+
+        return 0;
+    }
+
+    private function getMaxNameLength(array $commands): int
+    {
+        $lengths = array_map(fn($cmd) => strlen($cmd->getName()), $commands);
+        return max($lengths ?: [0]);
     }
 }
