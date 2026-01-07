@@ -6,7 +6,7 @@ use Essential\Cli\CommandRegistry;
 use Essential\Cli\Commands\HelpCommand;
 use Essential\Cli\Commands\VersionCommand;
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 $root = \Composer\InstalledVersions::getRootPackage();
 
