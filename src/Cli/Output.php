@@ -4,7 +4,7 @@ namespace Essential\Cli;
 
 final class Output
 {
-    public function __construct(private bool $ansi) {};
+    public function __construct(private bool $ansi) {}
 
     private function color(string $code, string $text): string
     {

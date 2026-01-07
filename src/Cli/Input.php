@@ -2,7 +2,7 @@
 
 namespace Essential\Cli;
 
-final final class Input
+final class Input
 {
     private array $args;
     private ?string $command = null;

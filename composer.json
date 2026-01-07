@@ -4,7 +4,7 @@
     "type": "library",
     "autoload": {
         "psr-4": {
-            "Essential\\Framework\\": "src/"
+            "Essential\\": "src/"
         }
     },
     "authors": [
@@ -13,5 +13,10 @@
             "email": "sennadevinicius@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "composer-runtime-api": "^2.0"
+    },
+    "require-dev": {
+        "composer/composer": "^2.7"
+    }
 }

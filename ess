@@ -1,0 +1,20 @@
+#!/usr/bin/env php
+<?php
+
+use Essential\Cli\Application;
+use Essential\Cli\CommandRegistry;
+use Essential\Cli\Commands\HelpCommand;
+use Essential\Cli\Commands\VersionCommand;
+
+require __DIR__ . '/vendor/autoload.php';
+
+$root = \Composer\InstalledVersions::getRootPackage();
+
+$registry = new CommandRegistry();
+
+$registry->register(new HelpCommand($registry));
+$registry->register(new VersionCommand($root['name'], $root['pretty_version']));
+
+$app = new Application($registry);
+
+exit($app->run($argv));
