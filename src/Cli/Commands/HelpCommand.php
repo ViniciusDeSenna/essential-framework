@@ -21,6 +21,11 @@ final class HelpCommand implements CommandInterface
         return 'Show available commands';
     }
 
+    public function getModule(): string
+    {
+        return 'CLI';
+    }
+
     public function getUsage(): string
     {
         return 'ess help [command]';
@@ -30,6 +35,7 @@ final class HelpCommand implements CommandInterface
     {
         $args = $input->arguments();
         $commandName = $args[0] ?? null;
+
 
         if ($commandName) {
             return $this->showCommandHelp($commandName, $output);

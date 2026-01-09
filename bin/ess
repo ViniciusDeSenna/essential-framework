@@ -8,12 +8,16 @@ use Essential\Cli\Commands\VersionCommand;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$root = \Composer\InstalledVersions::getRootPackage();
+$composer = json_decode(file_get_contents(__DIR__ . '/../composer.json'), true);
 
 $registry = new CommandRegistry();
 
 $registry->register(new HelpCommand($registry));
-$registry->register(new VersionCommand($root['name'], $root['pretty_version']));
+$registry->register(new VersionCommand(
+    $composer['name'],
+    $composer['version'],
+    $composer['homepage'] ?? ''
+));
 
 $app = new Application($registry);
 

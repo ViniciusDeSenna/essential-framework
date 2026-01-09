@@ -1,8 +1,10 @@
 {
     "name": "essential/framework",
     "description": "Minimalist PHP framework for building fast and simple APIs. The essential is simple. The simple is easy. The easy is inexpensive.",
+    "version": "1.0.0",
     "type": "library",
     "bin": ["bin/ess"],
+    "homepage": "https://github.com/ViniciusDeSenna/essential-framework",
     "autoload": {
         "psr-4": {
             "Essential\\": "src/"
