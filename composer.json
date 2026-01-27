@@ -1,25 +1,65 @@
 {
     "name": "essential/framework",
     "description": "Minimalist PHP framework for building fast and simple APIs. The essential is simple. The simple is easy. The easy is inexpensive.",
-    "version": "1.0.0",
     "type": "library",
-    "bin": ["bin/ess"],
+    "keywords": ["framework", "api", "minimalist", "lightweight", "rest", "php", "microframework"],
+    "license": "MIT",
     "homepage": "https://github.com/ViniciusDeSenna/essential-framework",
-    "autoload": {
-        "psr-4": {
-            "Essential\\": "src/"
-        }
-    },
+    "bin": ["bin/ess"],
     "authors": [
         {
-            "name": "SENNA",
+            "name": "Vinícius de Senna",
             "email": "sennadevinicius@gmail.com"
         }
     ],
     "require": {
+        "php": "^8.1",
         "composer-runtime-api": "^2.0"
     },
     "require-dev": {
-        "composer/composer": "^2.7"
+        "composer/composer": "^2.7",
+        "phpunit/phpunit": "^10.0",
+        "phpstan/phpstan": "^1.10",
+        "squizlabs/php_codesniffer": "^3.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Essential\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Essential\\Tests\\": "tests/"
+        }
+    },
+    "suggest": {
+        "essential/database": "Database component with query builder and migrations",
+        "essential/validation": "Request validation component",
+        "essential/cache": "Cache component with multiple drivers"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true,
+        "preferred-install": "dist"
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test:coverage": "phpunit --coverage-html coverage",
+        "stan": "phpstan analyse src --level=max",
+        "cs:check": "phpcs src tests --standard=PSR12",
+        "cs:fix": "phpcbf src tests --standard=PSR12",
+        "post-create-project-cmd": [
+            "@php bin/ess init"
+        ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.x-dev"
+        }
     }
 }

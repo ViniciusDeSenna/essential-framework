@@ -1,0 +1,50 @@
+{
+    "name": "essential/routing",
+    "description": "Lightweight and flexible routing component for Essential",
+    "type": "library",
+    "keywords": ["router", "routing", "http", "framework", "rest", "restful"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Seu Nome",
+            "email": "seu@email.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "nikic/fast-route": "^1.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0",
+        "phpstan/phpstan": "^1.10",
+        "squizlabs/php_codesniffer": "^3.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Essential\\Routing\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Essential\\Routing\\Tests\\": "tests/"
+        }
+    },
+    "suggest": {
+        "symfony/routing": "Alternative router adapter with more features",
+        "Essential/http": "HTTP abstractions for Request and Response"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true,
+        "preferred-install": "dist"
+    },
+    "scripts": {
+        "test": "phpunit",
+        "test:coverage": "phpunit --coverage-html coverage",
+        "stan": "phpstan analyse src --level=max",
+        "cs:check": "phpcs src tests --standard=PSR12",
+        "cs:fix": "phpcbf src tests --standard=PSR12"
+    }
+}

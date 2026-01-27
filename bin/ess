@@ -5,18 +5,22 @@ use Essential\Cli\Application;
 use Essential\Cli\CommandRegistry;
 use Essential\Cli\Commands\HelpCommand;
 use Essential\Cli\Commands\VersionCommand;
+use Composer\InstalledVersions;
 
 require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../../../autoload.php'; 
 
-$composer = json_decode(file_get_contents(__DIR__ . '/../composer.json'), true);
+$packageName = 'essential/framework';
+$version = InstalledVersions::getPrettyVersion($packageName) ?? 'dev';
+$rootPackage = InstalledVersions::getRootPackage();
 
 $registry = new CommandRegistry();
 
 $registry->register(new HelpCommand($registry));
 $registry->register(new VersionCommand(
-    $composer['name'],
-    $composer['version'],
-    $composer['homepage'] ?? ''
+    $packageName,
+    $version,
+    'https://github.com/ViniciusDeSenna/essential-framework'
 ));
 
 $app = new Application($registry);
