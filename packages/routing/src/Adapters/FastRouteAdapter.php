@@ -3,7 +3,8 @@
 namespace Essential\Routing\Adapters;
 
 use Essential\Routing\Contracts\RouteHandlerInterface;
-use Essential\Routing\Contracts\RequestInterface;
+use Essential\Routing\Contracts\RequestContextInterface;
+use Essential\Routing\Contracts\HttpRequestInterface;
 use Essential\Routing\Contracts\RouteMatchInterface;
 use Essential\Routing\Contracts\RouterAdapterInterface;
 use Essential\Routing\Contracts\RouteInterface;
@@ -46,8 +47,18 @@ class FastRouteAdapter implements RouterAdapterInterface
         $this->dispatcher = null;
     }
 
-    public function match(RequestInterface $request): RouteMatchInterface
+    public function match(RequestContextInterface $request): RouteMatchInterface
     {
+        // FastRoute is HTTP-specific, so we need HTTP request methods
+        // RequestInterface (HTTP) extends RequestContextInterface
+        if (!$request instanceof HttpRequestInterface) {
+            // If request doesn't provide HTTP methods, it's incompatible with FastRoute
+            throw new \InvalidArgumentException(
+                'FastRouteAdapter requires HttpRequestInterface. ' .
+                'Received: ' . get_class($request)
+            );
+        }
+        
         $dispatcher = $this->getDispatcher();
         $method = $request->getMethod();
         $uri = $request->getPath();

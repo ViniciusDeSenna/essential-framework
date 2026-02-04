@@ -22,6 +22,17 @@ interface RouterAdapterInterface
         mixed $handler, 
         array $middlewares = []
     ): void;
-    public function match(RequestInterface $request): RouteMatchInterface;
+    
+    /**
+     * Match request to a route.
+     * 
+     * Works with any protocol through RequestContextInterface.
+     * HTTP adapters receive HttpRequestInterface (which extends RequestContextInterface).
+     * Other protocol adapters receive their own request context implementations.
+     * 
+     * @param RequestContextInterface $request Protocol-agnostic request context
+     * @return RouteMatchInterface The matched route, or not-matched state
+     */
+    public function match(RequestContextInterface $request): RouteMatchInterface;
     public function generateUrl(string $name, array $params = []): string;
 }

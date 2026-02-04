@@ -35,8 +35,28 @@ interface RouterInterface
 
     public function group(callable $callback): RouteGroupInterface;
 
-    public function match(RequestInterface $request): RouteMatchInterface;
-    public function dispatch(RequestInterface $request): ResponseInterface;
+    /**
+     * Match a request to a route.
+     * 
+     * Works with any protocol through RequestContextInterface.
+     * HTTP requests provide HttpRequestInterface (extends RequestContextInterface).
+     * CLI requests implement RequestContextInterface directly.
+     * Event requests implement RequestContextInterface directly.
+     * 
+     * @param RequestContextInterface $request Protocol-agnostic request context
+     * @return RouteMatchInterface The matched route (or not matched)
+     */
+    public function match(RequestContextInterface $request): RouteMatchInterface;
+    
+    /**
+     * Dispatch a request through the routing and handler pipeline.
+     * 
+     * Works with any protocol through RequestContextInterface and ResponseContextInterface.
+     * 
+     * @param RequestContextInterface $request Protocol-agnostic request context
+     * @return ResponseContextInterface Protocol-agnostic response context
+     */
+    public function dispatch(RequestContextInterface $request): ResponseContextInterface;
 
     public function url(string $name, array $params = []): string;
 

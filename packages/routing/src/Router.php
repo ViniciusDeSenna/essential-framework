@@ -8,6 +8,8 @@ use Essential\Routing\Contracts\RouteInterface;
 use Essential\Routing\Contracts\RouteGroupInterface;
 use Essential\Routing\Contracts\RouteCollectionInterface;
 use Essential\Routing\Contracts\RouteCollectionFactoryInterface;
+use Essential\Routing\Contracts\RequestContextInterface;
+use Essential\Routing\Contracts\ResponseContextInterface;
 use Essential\Routing\Contracts\RequestInterface;
 use Essential\Routing\Contracts\ResponseInterface;
 use Essential\Routing\Contracts\RouteMatchInterface;
@@ -17,6 +19,8 @@ use Essential\Routing\Contracts\RouteGroupFactoryInterface;
 use Essential\Routing\Factories\RouteCollectionFactory;
 use Essential\Routing\Factories\RouteFactory;
 use Essential\Routing\Factories\RouteGroupFactory;
+use Essential\Routing\Contracts\HttpRequestInterface;
+use Essential\Routing\Contracts\HttpResponseInterface;
 
 class Router implements RouterInterface
 {
@@ -129,12 +133,12 @@ class Router implements RouterInterface
         return $group;
     }
 
-    public function match(RequestInterface $request): RouteMatchInterface
+    public function match(RequestContextInterface $request): RouteMatchInterface
     {
         return $this->adapter->match($request);
     }
 
-    public function dispatch(RequestInterface $request): ResponseInterface
+    public function dispatch(RequestContextInterface $request): ResponseContextInterface
     {
         $match = $this->match($request);
         
@@ -194,7 +198,7 @@ class Router implements RouterInterface
         return $middlewares;
     }
 
-    private function runMiddlewarePipeline(RouteInterface $route, RequestInterface $request, array $params): ResponseInterface
+    private function runMiddlewarePipeline(RouteInterface $route, RequestContextInterface $request, array $params): ResponseContextInterface
     {
         $middlewares = $route->getMiddlewares();
         $handler = $route->getHandler();
