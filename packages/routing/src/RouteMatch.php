@@ -2,16 +2,24 @@
 
 namespace Essential\Routing;
 
-use Essential\Routing\Contracts\RouteInterface;
 use Essential\Routing\Contracts\RouteMatchInterface;
+use Essential\Routing\Contracts\RouteInterface;
 
 class RouteMatch implements RouteMatchInterface
 {
+    private bool $matched;
+    private ?RouteInterface $route;
+    private array $params;
+
     public function __construct(
-        private bool $matched,
-        private ?RouteInterface $route = null,
-        private array $params = []
-    ) {}
+        bool $matched,
+        ?RouteInterface $route = null,
+        array $params = []
+    ) {
+        $this->matched = $matched;
+        $this->route = $route;
+        $this->params = $params;
+    }
 
     public function isMatched(): bool
     {
